@@ -13,7 +13,7 @@ def interactive_container_shell(container_id): #not currently using
         result = subprocess.run(user_command, shell=True, capture_output=True, text=True)
 
         if result.returncode == 0:
-            print(result.stdout)
+            print(result.stdout,"\n")
         else:
             print("Error:", result.stderr)
 

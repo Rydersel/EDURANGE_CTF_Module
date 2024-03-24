@@ -1,0 +1,26 @@
+version: '3'
+services:
+  guacd:
+    image: guacamole/guacd
+    platform: linux/amd64
+    restart: always
+
+  guacamole:
+    image: guacamole/guacamole
+    platform: linux/amd64
+    restart: always
+    volumes:
+      - "/etc/guacamole:/etc/guacamole"
+    links:
+      - guacd:guacd
+    environment:
+      GUACD_HOSTNAME: guacd
+      GUACAMOLE_HOME: /etc/guacamole
+      # Uncomment and fill the following environment variables if using MySQL
+      # MYSQL_DATABASE: guacamole_db
+      # MYSQL_USER: guacamole_user
+      # MYSQL_PASSWORD: guacamole_password
+    ports:
+      - "8081:8080"  # Changed to use port 8081 on the host
+    depends_on:
+      - guacd

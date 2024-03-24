@@ -1,17 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import subprocess
-import os
-from main import start_challenge
 from main import generate_challenge
-from utils import load_challenge
-from utils import verify_solution_and_cleanup
-from docker_util import start_challenge
-from utils import del_challenge_directory
-from utils import start_ctf_container
-from utils import start_ctf_container_interactively
-from docker_util import start_challenge_container
-from utils import shutdown_container
-from docker_util  import interactive_container_shell
+
 app = Flask(__name__)
 
 global docker_id
@@ -22,10 +12,10 @@ def execute_command():
     result = subprocess.run(user_command, shell=True, capture_output=True, text=True)
 
     if result.returncode == 0:
-        print(result.stdout, "\n")
-        output = result.stdout
+        print(result.stdout)
+        output = (result.stdout)
     else:
-        output = ("Error:", result.stderr, "\n")
+        output = ("Error:", result.stderr)
         print("error")
 
 
@@ -37,9 +27,8 @@ def execute_command():
 
 @app.route('/')
 def home():
-    # Render a simple home page that lists challenges
-    # In a real app, you'd dynamically list available challenges
-    challenges = [1, 2, 3]  # Example challenge numbers
+    #TODO dynamically list challenges (maybe split it into catagorized modules
+    challenges = [1, 2, 3]
     return render_template('index.html', challenges=challenges)
 
 @app.route('/start_challenge/<int:challenge_number>', methods=['GET'])

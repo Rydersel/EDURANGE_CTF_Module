@@ -32,6 +32,7 @@ def generate_challenge(challenge_number):
     start_challenge_container(challenge_id)
     return start_challenge(challenge_id)
 
+#to many different functions with similar names for challenge generation, need to clean this up later
 
 def main_menu():
     # temp console menu
